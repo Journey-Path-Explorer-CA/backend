@@ -1,14 +1,16 @@
-from fastapi import FastAPI
 
+from fastapi import FastAPI
+from database import Base, engine
+# Importa tus routers
+from shape.route.ShapesController import shape
+from stop.route.StopsController import stop
+from stoptime.route.StopTimesController import stop_time
 app = FastAPI()
 
+# Crear las tablas si no existen
+Base.metadata.create_all(bind=engine)
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
-
-
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    return {"message": f"Hello {name}"}
-
+# Incluir routers
+app.include_router(stop)
+app.include_router(stop_time)
+app.include_router(shape)
