@@ -6,7 +6,7 @@ from sqlalchemy.orm import declarative_base
 # URL de conexión sin especificar la base de datos
 #DATABASE_URL = "mysql+pymysql://uetctip1fmcn5wdp:shwaoFGKNmOB2MVn2FqM@bbw4as08rnqsck1swmou-mysql.services.clever-cloud.com:3306/"
 # ✅ 1. URL de conexión sin la base de datos para crearla
-DATABASE_URL = "mysql+pymysql://root:password@localhost:3306/"
+DATABASE_URL = "mysql+pymysql://root:Firtness141200@localhost:3306/"
 
 # Nombre de la base de datos
 #DATABASE_NAME = "bbw4as08rnqsck1swmou"
@@ -23,7 +23,7 @@ with engine.connect() as connection:
 # Actualizar la URL de la base de datos para incluir el nombre de la base de datos
 #DATABASE_URL = f"mysql+pymysql://uetctip1fmcn5wdp:shwaoFGKNmOB2MVn2FqM@bbw4as08rnqsck1swmou-mysql.services.clever-cloud.com:3306/{DATABASE_NAME}"
 # ✅ 5. Actualizar la URL para apuntar a la base de datos ya creada
-DATABASE_URL = f"mysql+pymysql://root:password@localhost:3306/{DATABASE_NAME}"
+DATABASE_URL = f"mysql+pymysql://root:Firtness141200@localhost:3306/{DATABASE_NAME}"
 
 # ✅ 6. Nuevo engine ya apuntando a la base específica
 engine = create_engine(DATABASE_URL)
