@@ -7,6 +7,7 @@ from stoptime.route.StopTimesController import stop_time
 from trip.route.TripsController import trip
 from route.graph_controller import graph_router
 from calendarr.route.CalendarController import calendar
+
 app = FastAPI()
 
 # Crear las tablas si no existen
