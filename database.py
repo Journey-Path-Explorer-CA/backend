@@ -7,6 +7,9 @@ import os
 # Aquí uso MYSQL_URL como ejemplo:
 DATABASE_URL = os.environ.get("MYSQL_URL")
 
+# PRUEBAS
+#DATABASE_URL = "publica"
+
 # ✅ Si prefieres construirla manualmente, podrías usar:
 # DATABASE_URL = f"mysql+pymysql://{os.environ['MYSQLUSER']}:{os.environ['MYSQLPASSWORD']}@{os.environ['MYSQLHOST']}:{os.environ['MYSQLPORT']}/{os.environ['MYSQLDATABASE']}"
 
