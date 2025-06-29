@@ -41,3 +41,22 @@ async def delete_trip(trip_id: str, db: db_dependency):
     db.delete(trip_obj)
     db.commit()
     return {"message": "Trip deleted successfully"}
+
+@trip.get("/trips/by_service/{service_id}", tags=["Trips"])
+async def get_trips_by_service_id(service_id: str, db: db_dependency):
+    trips = db.query(TripS).filter(TripS.service_id == service_id).all()
+    if not trips:
+        raise HTTPException(status_code=404, detail="No trips found for the given service_id")
+
+    result = [
+        {
+            "trip_id": trip.trip_id,
+            "route_id": trip.route_id,
+            "trip_headsign": trip.trip_headsign,
+            "trip_short_name": trip.trip_short_name,
+            "direction_id": trip.direction_id,
+            "shape_id": trip.shape_id
+        }
+        for trip in trips
+    ]
+    return result

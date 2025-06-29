@@ -5,8 +5,6 @@ from sqlalchemy.exc import IntegrityError
 
 df = pd.read_csv("stop_times.txt", encoding="utf-8-sig", sep=",")
 
-print("Columnas detectadas:", df.columns)
-
 db = SessionLocal()
 
 stop_times = []

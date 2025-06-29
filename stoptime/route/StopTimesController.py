@@ -1,5 +1,6 @@
 from fastapi import APIRouter, HTTPException, status
 from configuration.db_dependency import db_dependency
+from stop.schema.StopSchema import StopS
 from stoptime.model.aggregates.StopTime import StopTime
 from stoptime.schema.StopTimeSchema import StopTimeS
 
@@ -41,3 +42,41 @@ async def delete_stop_time(id: int, db: db_dependency):
     db.delete(obj)
     db.commit()
     return {"message": "Stop time deleted successfully"}
+
+@stop_time.get("/stop_times/by_trip/{trip_id}", tags=["StopTimes"])
+async def get_stops_by_trip_id(trip_id: str, db: db_dependency):
+    stop_times = (
+        db.query(StopTimeS)
+        .filter(StopTimeS.trip_id == trip_id)
+        .order_by(StopTimeS.stop_sequence)
+        .all()
+    )
+    if not stop_times:
+        raise HTTPException(status_code=404, detail="No stop times found for the given trip_id")
+
+    stop_ids = [st.stop_id for st in stop_times]
+
+    stops = (
+        db.query(
+            StopS.stop_id,
+            StopS.stop_name,
+            StopS.stop_lat,
+            StopS.stop_lon,
+            StopS.zone_id,
+            StopS.wheelchair_boarding
+        )
+        .filter(StopS.stop_id.in_(stop_ids))
+        .all()
+    )
+
+    return [
+        {
+            "stop_id": stop.stop_id,
+            "stop_name": stop.stop_name,
+            "stop_lat": stop.stop_lat,
+            "stop_lon": stop.stop_lon,
+            "zone_id": stop.zone_id,
+            "wheelchair_boarding": stop.wheelchair_boarding
+        }
+        for stop in stops
+    ]
